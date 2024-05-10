@@ -1,98 +1,77 @@
 const router = require('express').Router();
 const mqtt = require('mqtt');
+const Temperature = require('../schema/temperature');
 
-let lasstMessage = "No data received";
-let lasstMessage2 = "No data received";
-let lasstMessage3 = "No data received";
+// Crear una instancia única de cliente MQTT que será utilizada en todo el router
+const client = mqtt.connect('mqtt://localhost:1883');
 
-router.get('/', (req, res) => {
-    // Conectar al broker MQTT
-    const client = mqtt.connect('mqtt://localhost:1883');
-    const client2 = mqtt.connect('mqtt://localhost:1883');
-    const client3 = mqtt.connect('mqtt://localhost:1883');
+let lastMessage = "No data received";
+let lastMessage2 = "No data received";
+let lastMessage3 = "No data received";
+let lastTemperature = null;
 
-    client.on("connect", () => {
-        console.log("Connected to MQTT broker");
-        client.subscribe("presence", (err) => {
-            if (!err) {
-                console.log("Subscribed to topic 'presence'");
-            } else {
-                res.status(500).send("Failed to subscribe");
-            }
-        });
-    });
-
-    client2.on("connect", () => {
-        console.log("Connected to MQTT broker2");
-        client2.subscribe("prueba", (err) => {
-            if (!err) {
-                console.log("Subscribed to topic 'prueba'");
-            } else {
-                res.status(500).send("Failed to subscribe");
-            }
-        });
-    });
-
-    client3.on("connect", () => {
-        console.log("Connected to MQTT broker3");
-        client3.subscribe("prueba2", (err) => {
-            if (!err) {
-                console.log("Subscribed to topic 'prueba2'");
-            } else {
-                res.status(500).send("Failed to subscribe");
-            }
-        });
-    });
-
-    client2.on("message", (topic, msg) => {
-        console.log("Received message:", msg.toString());
-        lasstMessage2 = msg.toString();
-        client2.end();
-    });
-
-
-    client.on("message", (topic, msg) => {
-        console.log("Received message:", msg.toString());
-        // Enviar la respuesta y cerrar la conexión
-        lasstMessage = msg.toString();
-        client.end();
-    });
-
-    client3.on("message", (topic, msg) => {
-        console.log("Received message:", msg.toString());
-        // Enviar la respuesta y cerrar la conexión
-        lasstMessage3 = msg.toString();
-        client3.end();
-    });
-
-    client.on("error", (error) => {
-        console.error("Connection error:", error);
-        res.status(500).send("MQTT connection error");
-        client.end();
-    });
-
-    client2.on("error", (error) => {
-        console.error("Connection error:", error);
-        res.status(500).send("MQTT connection error");
-        client2.end();
-    });
-
-    client3.on("error", (error) => {
-        console.error("Connection error:", error);
-        res.status(500).send("MQTT connection error");
-        client3.end();
-    });
-
-    res.send(lasstMessage + " " + lasstMessage2 + " " + lasstMessage3);
-    // Timeout para cerrar la conexión si no se recibe ningún mensaje
-    setTimeout(() => {
-        if (!res.headersSent) {
-            res.send(lasstMessage + " " + lasstMessage2 + " " + lasstMessage3);
-            client.end();
+client.on("connect", () => {
+    console.log("Connected to MQTT broker");
+    // Suscribirse a todos los temas necesarios aquí si es posible
+    client.subscribe(["temperature", "prueba", "prueba2"], (err, granted) => {
+        if (err) {
+            console.log("Failed to subscribe:", err.message);
+        } else {
+            console.log("Subscribed to topics:", granted.map(sub => sub.topic).join(", "));
         }
-    }, 5000); 
-    
-    // Espera 5 segundos por un mensaje
+    });
 });
 
+client.on("message", (topic, message) => {
+    console.log(`Received message from ${topic}:`, message.toString());
+    switch (topic) {
+        case "temperature":
+            lastMessage = message.toString();
+            lastTemperature = parseFloat(message.toString());
+            break;
+        case "prueba":
+            lastMessage2 = message.toString();
+            break;
+        case "prueba2":
+            lastMessage3 = message.toString();
+            break;
+    }
+});
+
+client.on("error", (error) => {
+    console.error("Connection error:", error);
+});
+
+router.get('/', (req, res) => {
+    res.send(lastMessage + " " + lastMessage2 + " " + lastMessage3);
+});
+
+router.post('/', (req, res) => {
+    const { message } = req.body; // Recibe el mensaje del cuerpo de la solicitud
+    if (message) {
+        client.publish('respuesta', message, (err) => {
+            if (err) {
+                console.error("Publish error:", err);
+                return res.status(500).send("Failed to publish message");
+            }
+            res.send("Message published successfully");
+        });
+    } else {
+        res.status(400).send("No message provided");
+    }
+});
+
+function saveTemperature() {
+    if (lastTemperature !== null) {
+        const temperatureData = new Temperature({
+            value: lastTemperature
+        });
+        temperatureData.save()
+            .then(() => console.log("Temperature data saved successfully"))
+            .catch(err => console.error("Error saving temperature data:", err));
+    } else {
+        console.log("No temperature data to save");
+    }
+}
+setInterval(saveTemperature, 300000);
 module.exports = router;
