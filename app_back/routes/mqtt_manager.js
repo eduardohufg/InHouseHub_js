@@ -17,7 +17,7 @@ let lastHumidity = null;
 client.on("connect", () => {
     console.log("Connected to MQTT broker");
     // Suscribirse a todos los temas necesarios aquí si es posible
-    client.subscribe(["temperature", "prueba", "prueba2"], (err, granted) => {
+    client.subscribe(["temperature", "pressure", "humidity"], (err, granted) => {
         if (err) {
             console.log("Failed to subscribe:", err.message);
         } else {

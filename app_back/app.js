@@ -25,6 +25,7 @@ app.use('/api/todos',aunten,  require('./routes/todos'));
 app.use('/api/refresh-token', require('./routes/refreshToken'));
 app.use('/api/signout', require('./routes/signout'));
 app.use('/api/mqtt_manager', require('./routes/mqtt_manager'));
+app.use('/api/serial_manager', require('./routes/serial_manager'));
 
 
 app.get('/', (req, res) => {

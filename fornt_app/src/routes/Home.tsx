@@ -15,6 +15,10 @@ export default function Home() {
     const [data, setData] = useState("");
     const [data2, setData2] = useState("");
     const [data3, setData3] = useState("");
+    const [temInternal, setTemInternal] = useState("");
+    const [humInternal, setHumInternal] = useState("");
+    const [presInternal, setPresInternal] = useState("");
+
 
     const getMosquitto = async () => {
         try {
@@ -35,11 +39,34 @@ export default function Home() {
         }
     }
 
-    useEffect(() => {
-        getMosquitto();  // Llamar una vez cuando el componente se monta
-        const intervalId = setInterval(getMosquitto, 1000);  // Llamar cada 5000 ms (5 segundos)
+    const getInteralSensors = async () => {
+        try {
+            const response = await Axios.get(`${API_URL}/serial_manager`);
+            const messages = response.data.split(" ");  // Divide la cadena recibida en partes
+            // Asumir siempre tres partes según el diseño del sistema
+            setTemInternal(messages[0]);   // Establece el primer mensaje en el estado data
+            setHumInternal(messages[1]);  // Establece el segundo mensaje en el estado data2
+            setPresInternal(messages[2]);  // Establece el tercer mensaje en el estado data3
+            
+            console.log(response);
+            
+        } catch (error) {
+            console.error("Error fetching data:", error);
+            setTemInternal("Error fetching data"); // Ajusta los estados en caso de error
+            setHumInternal("Error fetching data");
+            setPresInternal("Error fetching data");
+        }
+    }
 
-        return () => clearInterval(intervalId);  // Limpiar el intervalo cuando el componente se desmonte
+
+    useEffect(() => {
+        getMosquitto();
+        getInteralSensors();  // Llamar una vez cuando el componente se monta
+        const intervalId = setInterval(getMosquitto, 1000);  
+        const intervalId2 = setInterval(getInteralSensors, 1000);  // Llamar a la función cada segundo
+        return () => {clearInterval(intervalId);
+                        clearInterval(intervalId2);
+        }  // Limpiar el intervalo cuando el componente se desmonte
     }, []);
 
     if (auth.isAuthenticated) {
@@ -54,6 +81,11 @@ export default function Home() {
             <div>{data3}</div>
             <h2>Publicar en MQTT</h2>
             <PublishButton />
+
+            <h2>Sensores internos</h2>
+            <div>{temInternal}</div>
+            <div>{humInternal}</div>
+            <div>{presInternal}</div>
            
         </DefaultHome>
     );
