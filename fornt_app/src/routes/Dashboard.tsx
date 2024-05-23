@@ -97,7 +97,7 @@ export default function Dashboard() {
               
 
 
-            {todos.map((todo) => (<div key = {todo._id}>{todo.title}</div>))}4
+            {todos.map((todo) => (<div key = {todo._id}>{todo.title}</div>))}
             <Player1 />
         </PortalLayout>
 

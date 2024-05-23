@@ -6,6 +6,10 @@ import { Navigate } from 'react-router-dom';
 import { API_URL } from "../auth/constants";
 import Axios from 'axios';
 import PublishButton from '../components/handlePublish';
+//import "@madzadev/audio-player/dist/index.css";
+import Player1 from "./player";
+import MusicPlayer from './musicPlayer';
+
 
 
 export default function Home() {
@@ -75,7 +79,7 @@ export default function Home() {
 
     return (
         <DefaultHome>
-            <h1>Aquí debe de ir toda la información y documentación del proyecto</h1>
+            
             <div>{data}</div>
             <div>{data2}</div>
             <div>{data3}</div>
@@ -86,7 +90,13 @@ export default function Home() {
             <div>{temInternal}</div>
             <div>{humInternal}</div>
             <div>{presInternal}</div>
+            
+            <MusicPlayer />
+            
+           
            
         </DefaultHome>
+        
+        
     );
 }
