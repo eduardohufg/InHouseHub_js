@@ -5,7 +5,7 @@
 }
 
 body {
-  background-color: #292929; /* Color gris claro */
+  background-color: #EEEEEE; /* Color gris claro */
   padding: 0;
   margin: 0;
 }
@@ -55,6 +55,19 @@ a {
   color: rgb(97, 28, 161);
   text-decoration: none;
 }
+.centered-text {
+  text-align: center;
+  margin: auto;  /* Esto asegura que también centra horizontalmente si tiene un ancho definido */
+  width: 100%; /* Opcional, asegura que el div ocupe todo el ancho del contenedor si es necesario */
+}
+
+.button-player {
+  background: 'transparent';
+  border: 'none';
+  cursor: 'pointer';
+  padding: '10px';
+}
+
 
 .dashboard {
   width: 500px;

@@ -3,17 +3,23 @@ import React, { useState, useRef, useEffect } from 'react';
 // Lista de canciones
 const tracks = [
     {
-        title: "More",
+        title: "MORE",
+        artist: "The Warning",
+        album: "MORE",
         url: "../../public/music/more.mp3",
         cover: "../../public/cover/more.jpg"
     },
     {
         title: "Canción 2",
+        artist: "The Warning",
+        album: "MORE",
         url: "/music/song2.mp3",
-        cover: "../../public/cover/los.jpg"
+        cover: "../imgs/stop_button.png"
     },
     {
         title: "Canción 3",
+        artist: "The Warning",
+        album: "MORE",
         url: "/music/song3.mp3",
         cover: "../../public/cover/los.jpg"
     }
@@ -77,6 +83,13 @@ const MusicPlayer: React.FC = () => {
         return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
     };
 
+    const buttonStyle = {
+        background: 'transparent',
+        border: 'none',
+        cursor: 'pointer',
+        padding: '10px'
+    };
+
     return (
         <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
@@ -84,11 +97,18 @@ const MusicPlayer: React.FC = () => {
                 <div>
                     <audio src={tracks[trackIndex].url} ref={audioRef} onEnded={playNextTrack} />
                     <div>
-                        <button onClick={playPreviousTrack}>Previous</button>
-                        <button onClick={() => setIsPlaying(!isPlaying)}>
-                            {isPlaying ? 'Pause' : 'Play'}
+                        <div className="centered-text">{tracks[trackIndex].title}</div>
+                        <div className="centered-text">{tracks[trackIndex].artist}</div>
+                        <div className="centered-text">{tracks[trackIndex].album}</div>
+                        <button onClick={playPreviousTrack} style={buttonStyle}>
+                            <img src="../../public/imgs/prev_button.png" style={{ width: '20px', height: '20px' }}/>
                         </button>
-                        <button onClick={playNextTrack}>Next</button>
+                        <button onClick={() => setIsPlaying(!isPlaying)} style={buttonStyle}>
+                            <img src={isPlaying ? "../../public/imgs/stop_button.png" : "../../public/imgs/play_button.png"} style={ isPlaying ?{ width: '20px', height: '20px' }: { width: '20px', height: '20px' }}/>
+                        </button>
+                        <button onClick={playNextTrack} style={buttonStyle}>
+                            <img src="../../public/imgs/next_button.png" style={{ width: '20px', height: '20px' }}/>
+                        </button>
                     </div>
                     <div>
                         <label>
@@ -114,7 +134,7 @@ const MusicPlayer: React.FC = () => {
                         />
                         <div>{formatTime(currentTime)}/{formatTime(duration)}</div>
                     </div>
-                    <div>Now Playing: {tracks[trackIndex].title}</div>
+                    
                 </div>
             </div>
         </div>
@@ -122,4 +142,3 @@ const MusicPlayer: React.FC = () => {
 };
 
 export default MusicPlayer;
-
