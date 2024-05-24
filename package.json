@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@madzadev/audio-player": "^2.1.13"
+  }
+}
