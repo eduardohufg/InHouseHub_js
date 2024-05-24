@@ -9,6 +9,10 @@ const HumiditySchema = new Mongoose.Schema({
         type: Number,
         //required: true,
     },
+    date: {
+        type: Date,
+        default: Date.now,
+    },
 });
 
 module.exports = Mongoose.model("Humidity", HumiditySchema);
