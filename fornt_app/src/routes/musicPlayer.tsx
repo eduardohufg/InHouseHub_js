@@ -93,7 +93,7 @@ const MusicPlayer: React.FC = () => {
     return (
         <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-                <img src={tracks[trackIndex].cover} alt={tracks[trackIndex].title} style={{ width: '200px', height: '200px' }} />
+                <img src={tracks[trackIndex].cover} alt={tracks[trackIndex].title} style={{ width: '200px', height: '200px', borderRadius: 15}} />
                 <div>
                     <audio src={tracks[trackIndex].url} ref={audioRef} onEnded={playNextTrack} />
                     <div>
@@ -112,7 +112,7 @@ const MusicPlayer: React.FC = () => {
                     </div>
                     <div>
                         <label>
-                            Volume:
+                            <img src="../../public/imgs/volume.png" style={{ width: '20px', height: '20px' }}/>
                             <input
                                 type="range"
                                 min="0"

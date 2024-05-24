@@ -59,6 +59,8 @@ a {
   text-align: center;
   margin: auto;  /* Esto asegura que también centra horizontalmente si tiene un ancho definido */
   width: 100%; /* Opcional, asegura que el div ocupe todo el ancho del contenedor si es necesario */
+  /*tipo de letra*/
+  font-family: 'Rubik', sans-serif;
 }
 
 .button-player {
@@ -66,6 +68,10 @@ a {
   border: 'none';
   cursor: 'pointer';
   padding: '10px';
+}
+
+.img-cover {
+  border-radius: 100px;
 }
 
 
