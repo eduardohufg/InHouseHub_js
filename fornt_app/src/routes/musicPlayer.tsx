@@ -3,6 +3,13 @@ import React, { useState, useRef, useEffect } from 'react';
 // Lista de canciones
 const tracks = [
     {
+        title: "Z",
+        artist: "The Warning",
+        album: "Error",
+        url: "../../public/music/z.mp3",
+        cover: "../../public/cover/error.jpg"
+    },
+    {
         title: "MORE",
         artist: "The Warning",
         album: "MORE",
@@ -10,18 +17,74 @@ const tracks = [
         cover: "../../public/cover/more.jpg"
     },
     {
-        title: "Canción 2",
+        title: "KOOL AID KIDS",
         artist: "The Warning",
-        album: "MORE",
-        url: "/music/song2.mp3",
-        cover: "../imgs/stop_button.png"
+        album: "Error",
+        url: "../../public/music/kool-aid-kids.mp3",
+        cover: "../../public/cover/error.jpg"
     },
     {
-        title: "Canción 3",
+        title: "Teddy Picker",
+        artist: "Arctic Monkeys",
+        album: "Favourite Worst Nightmare",
+        url: "../../public/music/teddy-picker.mp3",
+        cover: "../../public/cover/worst-nightmare.jpg"
+    },
+    {
+        title: "Automatic Sun",
         artist: "The Warning",
-        album: "MORE",
-        url: "/music/song3.mp3",
-        cover: "../../public/cover/los.jpg"
+        album: "Keep Me Fed",
+        url: "../../public/music/automatic-sun.mp3",
+        cover: "../../public/cover/keep-me-fed.jpg"
+    },
+    {
+        title: "Aces High",
+        artist: "Iron Maiden",
+        album: "Powerslave",
+        url: "../../public/music/aces-high.mp3",
+        cover: "../../public/cover/powerslave.jpg"
+    },
+    {
+        title: "Cómo es posible que a mi lado",
+        artist: "Luis Miguel",
+        album: "Nada es igual",
+        url: "../../public/music/como-es-posible-que-a-mi-lado.mp3",
+        cover: "../../public/cover/nada-es-igual.jpg"
+    },
+    {
+        title: "La chica del bikini azul",
+        artist: "Luis Miguel",
+        album: "Palabra de honor",
+        url: "../../public/music/bikini-azul.mp3",
+        cover: "../../public/cover/palabra-de-honor.jpg"
+    },
+    {
+        title: "Locos",
+        artist: "León Larregui",
+        album: "Voluma",
+        url: "../../public/music/locos.mp3",
+        cover: "../../public/cover/voluma.jpg"
+    },
+    {
+        title: "Poli Love (unplugged)",
+        artist: "Zoé",
+        album: "Música de fondo (unplugged)",
+        url: "../../public/music/poli-love.mp3",
+        cover: "../../public/cover/musica-de-fondo.jpg"
+    },
+    {
+        title: "Vía lactea (unplugged",
+        artist: "Zoé",
+        album: "Música de fondo (unplugged)",
+        url: "../../public/music/via-lactea.mp3",
+        cover: "../../public/cover/musica-de-fondo.jpg"
+    },
+    {
+        title: "Azul",
+        artist: "Zoé",
+        album: "Aztlán",
+        url: "../../public/music/azul.mp3",
+        cover: "../../public/cover/aztlan.jpg"
     }
 ];
 
