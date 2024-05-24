@@ -62,6 +62,9 @@ a {
   /*tipo de letra*/
   font-family: 'Rubik', sans-serif;
 }
+.counter{
+  font-family: 'Rubik', sans-serif;
+}
 
 .button-player {
   background: 'transparent';

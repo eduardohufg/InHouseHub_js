@@ -92,52 +92,68 @@ const MusicPlayer: React.FC = () => {
 
     return (
         <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-                <img src={tracks[trackIndex].cover} alt={tracks[trackIndex].title} style={{ width: '200px', height: '200px', borderRadius: 15}} />
+    <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+        <img 
+            src={tracks[trackIndex].cover} 
+            alt={tracks[trackIndex].title} 
+            style={{ width: '200px', height: '200px', borderRadius: 15 }} 
+        />
+        <div>
+            <audio src={tracks[trackIndex].url} ref={audioRef} onEnded={playNextTrack} />
+            <div>
+                <div className="centered-text" style={{fontSize: 25, fontWeight: 'bold'}}>{tracks[trackIndex].title}</div>
+                <div className="centered-text" style={{fontSize: 17, fontWeight: 'bold'}}>{tracks[trackIndex].artist}</div>
+                <div className="centered-text">{tracks[trackIndex].album}</div>
                 <div>
-                    <audio src={tracks[trackIndex].url} ref={audioRef} onEnded={playNextTrack} />
-                    <div>
-                        <div className="centered-text">{tracks[trackIndex].title}</div>
-                        <div className="centered-text">{tracks[trackIndex].artist}</div>
-                        <div className="centered-text">{tracks[trackIndex].album}</div>
-                        <button onClick={playPreviousTrack} style={buttonStyle}>
-                            <img src="../../public/imgs/prev_button.png" style={{ width: '20px', height: '20px' }}/>
-                        </button>
-                        <button onClick={() => setIsPlaying(!isPlaying)} style={buttonStyle}>
-                            <img src={isPlaying ? "../../public/imgs/stop_button.png" : "../../public/imgs/play_button.png"} style={ isPlaying ?{ width: '20px', height: '20px' }: { width: '20px', height: '20px' }}/>
-                        </button>
-                        <button onClick={playNextTrack} style={buttonStyle}>
-                            <img src="../../public/imgs/next_button.png" style={{ width: '20px', height: '20px' }}/>
-                        </button>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '20px', justifyContent: 'center', marginBottom: '20px' }}>    
+                        <div>
+                            <audio src={tracks[trackIndex].url} ref={audioRef} onEnded={playNextTrack} />
+                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                <div style={{ display: 'flex', justifyContent: 'center', margin: '10px 0' }}>
+                                    <button onClick={playPreviousTrack} style={buttonStyle}>
+                                        <img src="../../public/imgs/prev_button.png" style={{ width: '20px', height: '20px' }} alt="Previous"/>
+                                    </button>
+                                    <button onClick={() => setIsPlaying(!isPlaying)} style={buttonStyle}>
+                                        <img src={isPlaying ? "../../public/imgs/stop_button.png" : "../../public/imgs/play_button.png"} style={{ width: '20px', height: '20px' }} alt="Play/Pause"/>
+                                    </button>
+                                    <button onClick={playNextTrack} style={buttonStyle}>
+                                        <img src="../../public/imgs/next_button.png" style={{ width: '20px', height: '20px' }} alt="Next"/>
+                                    </button>
+                                </div>
+                                <div>
+                                    <label>
+                                        <img src="../../public/imgs/volume.png" style={{ width: '20px', height: '20px' }} alt="Volume"/>
+                                        <input
+                                            type="range"
+                                            min="0"
+                                            max="1"
+                                            step="0.01"
+                                            value={volume}
+                                            onChange={e => setVolume(parseFloat(e.target.value))}
+                                            style={{ width: '100px' }}
+                                        />
+                                    </label>
+                                </div>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+                                    <div>{formatTime(currentTime)}</div>
+                                    <input
+                                        type="range"
+                                        min="0"
+                                        max={duration || 1}
+                                        value={currentTime}
+                                        onChange={e => audioRef.current!.currentTime = parseFloat(e.target.value)}
+                                        style={{ width: '100%' }}
+                                    />
+                                    <div>{formatTime(duration)}</div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <label>
-                            <img src="../../public/imgs/volume.png" style={{ width: '20px', height: '20px' }}/>
-                            <input
-                                type="range"
-                                min="0"
-                                max="1"
-                                step="0.01"
-                                value={volume}
-                                onChange={(e) => setVolume(parseFloat(e.target.value))}
-                            />
-                        </label>
-                    </div>
-                    <div>
-                        <input
-                            type="range"
-                            min="0"
-                            max={duration || 1}
-                            value={currentTime}
-                            onChange={(e) => audioRef.current!.currentTime = parseFloat(e.target.value)}
-                            style={{ width: '100%' }}
-                        />
-                        <div>{formatTime(currentTime)}/{formatTime(duration)}</div>
-                    </div>
-                    
                 </div>
             </div>
         </div>
+    </div>
+</div>
     );
 };
 
