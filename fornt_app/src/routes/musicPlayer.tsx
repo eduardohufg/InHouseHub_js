@@ -97,34 +97,61 @@ const MusicPlayer: React.FC = () => {
     const audioRef = useRef<HTMLAudioElement>(null);
 
     useEffect(() => {
-        if (isPlaying) {
-            audioRef.current?.play();
-        } else {
-            audioRef.current?.pause();
-        }
-    }, [isPlaying]);
-
-    useEffect(() => {
-        const audio = audioRef.current;
-
-        const setAudioData = () => {
-            setDuration(audio!.duration);
-            setCurrentTime(audio!.currentTime);
+        // Esta función asegura que cuando el trackIndex cambia, la nueva canción comience a reproducirse
+        // si el estado isPlaying es true.
+        const playAudio = async () => {
+            if (audioRef.current) {
+                if (isPlaying) {
+                    await audioRef.current.play();
+                } else {
+                    audioRef.current.pause();
+                }
+            }
         };
 
-        const setAudioTime = () => setCurrentTime(audio!.currentTime);
+        playAudio();
 
-        audio?.addEventListener('loadedmetadata', setAudioData);
+        // Establecer los metadatos iniciales para la nueva pista
+        const setAudioData = () => {
+            if (audioRef.current) {
+                setDuration(audioRef.current.duration);
+                setCurrentTime(audioRef.current.currentTime);
+            }
+        };
+
+        if (audioRef.current) {
+            audioRef.current.addEventListener('loadedmetadata', setAudioData);
+        }
+
+        // Limpieza: eliminar el listener cuando el componente se desmonte o el trackIndex cambie
+        return () => {
+            if (audioRef.current) {
+                audioRef.current.removeEventListener('loadedmetadata', setAudioData);
+            }
+        };
+    }, [trackIndex, isPlaying]); // Añade trackIndex a las dependencias
+
+    useEffect(() => {
+        const setAudioTime = () => {
+            if (audioRef.current) {
+                setCurrentTime(audioRef.current.currentTime);
+            }
+        };
+
+        const audio = audioRef.current;
         audio?.addEventListener('timeupdate', setAudioTime);
 
         return () => {
-            audio?.removeEventListener('loadedmetadata', setAudioData);
-            audio?.removeEventListener('timeupdate', setAudioTime);
+            if (audio) {
+                audio.removeEventListener('timeupdate', setAudioTime);
+            }
         };
     }, []);
 
     useEffect(() => {
-        audioRef.current!.volume = volume;
+        if (audioRef.current) {
+            audioRef.current.volume = volume;
+        }
     }, [volume]);
 
     const playNextTrack = () => {
@@ -132,12 +159,7 @@ const MusicPlayer: React.FC = () => {
     };
 
     const playPreviousTrack = () => {
-        setTrackIndex((prevIndex) => {
-            if (prevIndex <= 0) {
-                return tracks.length - 1;
-            }
-            return prevIndex - 1;
-        });
+        setTrackIndex((prevIndex) => prevIndex > 0 ? prevIndex - 1 : tracks.length - 1);
     };
 
     const formatTime = (time: number) => {
@@ -154,64 +176,66 @@ const MusicPlayer: React.FC = () => {
     };
 
     return (
+        
+
         <div>
-    <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-        <img 
-            src={tracks[trackIndex].cover} 
-            alt={tracks[trackIndex].title} 
-            style={{ width: '200px', height: '200px', borderRadius: 15 }} 
-        />
-        <div>
-            <audio src={tracks[trackIndex].url} ref={audioRef} onEnded={playNextTrack} />
-            <div>
-                <div className="centered-text" style={{fontSize: 25, fontWeight: 'bold'}}>{tracks[trackIndex].title}</div>
-                <div className="centered-text" style={{fontSize: 17, fontWeight: 'bold'}}>{tracks[trackIndex].artist}</div>
-                <div className="centered-text">{tracks[trackIndex].album}</div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+            <img 
+                src={tracks[trackIndex].cover} 
+                alt={tracks[trackIndex].title} 
+                style={{ width: '200px', height: '200px', borderRadius: 15 }} 
+            />
             <div>
                 <audio src={tracks[trackIndex].url} ref={audioRef} onEnded={playNextTrack} />
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <div style={{ display: 'flex', justifyContent: 'center', margin: '10px 0' }}>
-                        <button onClick={playPreviousTrack} style={buttonStyle}>
-                            <img src="../../public/imgs/prev_button.png" style={{ width: '20px', height: '20px' }} alt="Previous" />
-                        </button>
-                        <button onClick={() => setIsPlaying(!isPlaying)} style={buttonStyle}>
-                            <img src={isPlaying ? "../../public/imgs/stop_button.png" : "../../public/imgs/play_button.png"} style={{ width: '20px', height: '20px' }} alt="Play/Pause" />
-                        </button>
-                        <button onClick={playNextTrack} style={buttonStyle}>
-                            <img src="../../public/imgs/next_button.png" style={{ width: '20px', height: '20px' }} alt="Next" />
-                        </button>
-                    </div>
-                    <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
-                        <div className='counter'>{formatTime(currentTime)}</div>
-                        <input
-                            type="range"
-                            min="0"
-                            max={duration || 1}
-                            value={currentTime}
-                            onChange={(e) => audioRef.current!.currentTime = parseFloat(e.target.value)}
-                            style={{ flexGrow: 1, margin: '0 10px' }}
-                        />
-                        <div className='counter'    >{formatTime(duration)}</div>
-                        <label style={{ display: 'flex', alignItems: 'center', marginLeft: '20px' }}>
-                            <img src="../../public/imgs/volume.png" style={{ width: '20px', height: '20px' }} alt="Volume" />
+                <div>
+                    <div className="centered-text" style={{fontSize: 25, fontWeight: 'bold'}}>{tracks[trackIndex].title}</div>
+                    <div className="centered-text" style={{fontSize: 17, fontWeight: 'bold'}}>{tracks[trackIndex].artist}</div>
+                    <div className="centered-text">{tracks[trackIndex].album}</div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+                <div>
+                    <audio src={tracks[trackIndex].url} ref={audioRef} onEnded={playNextTrack} />
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                        <div style={{ display: 'flex', justifyContent: 'center', margin: '10px 0' }}>
+                            <button onClick={playPreviousTrack} style={buttonStyle}>
+                                <img src="../../public/imgs/prev_button.png" style={{ width: '20px', height: '20px' }} alt="Previous" />
+                            </button>
+                            <button onClick={() => setIsPlaying(!isPlaying)} style={buttonStyle}>
+                                <img src={isPlaying ? "../../public/imgs/stop_button.png" : "../../public/imgs/play_button.png"} style={{ width: '20px', height: '20px' }} alt="Play/Pause" />
+                            </button>
+                            <button onClick={playNextTrack} style={buttonStyle}>
+                                <img src="../../public/imgs/next_button.png" style={{ width: '20px', height: '20px' }} alt="Next" />
+                            </button>
+                        </div>
+                        <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+                            <div className='counter'>{formatTime(currentTime)}</div>
                             <input
                                 type="range"
                                 min="0"
-                                max="1"
-                                step="0.01"
-                                value={volume}
-                                onChange={(e) => setVolume(parseFloat(e.target.value))}
-                                style={{ width: '100px' }}
+                                max={duration || 1}
+                                value={currentTime}
+                                onChange={(e) => audioRef.current!.currentTime = parseFloat(e.target.value)}
+                                style={{ flexGrow: 1, margin: '0 10px' }}
                             />
-                        </label>
+                            <div className='counter'    >{formatTime(duration)}</div>
+                            <label style={{ display: 'flex', alignItems: 'center', marginLeft: '20px' }}>
+                                <img src="../../public/imgs/volume.png" style={{ width: '20px', height: '20px' }} alt="Volume" />
+                                <input
+                                    type="range"
+                                    min="0"
+                                    max="1"
+                                    step="0.01"
+                                    value={volume}
+                                    onChange={(e) => setVolume(parseFloat(e.target.value))}
+                                    style={{ width: '100px' }}
+                                />
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-            </div>
-        </div>
     </div>
+</div>
 </div>
     );
 };

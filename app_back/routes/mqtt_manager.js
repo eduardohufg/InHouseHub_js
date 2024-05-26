@@ -105,6 +105,7 @@ function saveHumidity() {
         console.log("No Humidity data to save");
     }
 }
+
 setInterval(saveTemperature, 300000);
 setInterval(savePressure, 300000);
 setInterval(saveHumidity, 300000);
