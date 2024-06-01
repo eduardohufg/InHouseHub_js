@@ -9,6 +9,7 @@ import PublishButton from '../components/handlePublish';
 //import "@madzadev/audio-player/dist/index.css";
 import Player1 from "./player";
 import MusicPlayer from './musicPlayer';
+import "../home.css";
 
 
 
@@ -19,6 +20,7 @@ export default function Home() {
     const [data, setData] = useState("");
     const [data2, setData2] = useState("");
     const [data3, setData3] = useState("");
+    const [data4, setData4] = useState("");
     const [temInternal, setTemInternal] = useState("");
     const [humInternal, setHumInternal] = useState("");
     const [presInternal, setPresInternal] = useState("");
@@ -79,23 +81,28 @@ export default function Home() {
 
     return (
         <DefaultHome>
-            
-            <div>{data}</div>
-            <div>{data2}</div>
-            <div>{data3}</div>
-            <h2>Publicar en MQTT</h2>
+    <div className="home-container">
+        <section className="sensor-section">
+            <header><h2>Datos MQTT</h2></header>
+            <div className="infodata">Temperature: <span>{data}</span></div>
+            <div className="infodata">Pressure: <span>{data2}</span></div>
+            <div className="infodata">Humidity: <span>{data3}</span></div>
             <PublishButton />
+        </section>
 
-            <h2>Sensores internos</h2>
-            <div>{temInternal}</div>
-            <div>{humInternal}</div>
-            <div>{presInternal}</div>
-            
+        <section className="sensor-section">
+            <header><h2>Sensores Internos</h2></header>
+            <div>Temperature: <span>{temInternal}</span></div>
+            <div>Humidity: <span>{humInternal}</span></div>
+            <div>Pressure: <span>{presInternal}</span></div>
+        </section>
+
+        <div>
             <MusicPlayer />
-            
-           
-           
-        </DefaultHome>
+        </div>
+    </div>
+</DefaultHome>
+
         
         
     );

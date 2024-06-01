@@ -214,7 +214,7 @@ const MusicPlayer: React.FC = () => {
                                 max={duration || 1}
                                 value={currentTime}
                                 onChange={(e) => audioRef.current!.currentTime = parseFloat(e.target.value)}
-                                style={{ flexGrow: 1, margin: '0 10px' }}
+                                style={{ flexGrow: 1, margin: '0 10px', cursor: 'pointer'}}
                             />
                             <div className='counter'    >{formatTime(duration)}</div>
                             <label style={{ display: 'flex', alignItems: 'center', marginLeft: '20px' }}>
@@ -226,9 +226,9 @@ const MusicPlayer: React.FC = () => {
                                     step="0.01"
                                     value={volume}
                                     onChange={(e) => setVolume(parseFloat(e.target.value))}
-                                    style={{ width: '100px' }}
-                                />
-                            </label>
+                                    style={{ width: '100px', color: 'transparent', cursor: 'pointer'}}
+                                />                                    
+                            </label>    
                         </div>
                     </div>
                 </div>

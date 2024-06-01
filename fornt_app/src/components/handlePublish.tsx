@@ -16,7 +16,7 @@ function PublishButton() {
 
     return (
         <div>
-            <button onClick={handlePublish}>Send '1' to MQTT</button>
+            <button style={{backgroundColor: 'red'}} onClick={handlePublish}>Turn On/Off Light 1</button>
             <p>{status}</p>
         </div>
     );

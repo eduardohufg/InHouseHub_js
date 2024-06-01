@@ -1,0 +1,39 @@
+/* styles/Home.css */
+.home-container {
+    display: flex;
+    align-items: center;
+    gap: 150px;
+    padding: 20px;
+}
+
+.infodata {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+.sensor-section {
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.sensor-heading {
+    font-size: 20px;
+    color: #555;
+}
+
+@media (max-width: 768px) {
+    .home-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .sensor-section {
+        padding: 10px;
+    }
+}
+
+.infodata span {
+    transition: all 0.3s ease;
+}

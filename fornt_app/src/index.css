@@ -19,6 +19,10 @@ label {
   margin: 0 auto;
 }
 
+.infodata {
+  text-align: center;
+}
+
 input[type="text"],
 [type="password"] {
   display: block;
