@@ -73,7 +73,7 @@ const tracks = [
         cover: "../../public/cover/musica-de-fondo.jpg"
     },
     {
-        title: "Vía lactea (unplugged",
+        title: "Vía lactea (unplugged)",
         artist: "Zoé",
         album: "Música de fondo (unplugged)",
         url: "../../public/music/via-lactea.mp3",
@@ -158,6 +158,20 @@ const MusicPlayer: React.FC = () => {
         setTrackIndex((prevIndex) => (prevIndex + 1) % tracks.length);
     };
 
+    const handleBackward = () => {
+        if (audioRef.current) {
+            const currentTime = audioRef.current.currentTime;
+            if (currentTime >= 2) {
+                // Si la canción lleva más de 5 segundos, la reinicia a 0:00
+                audioRef.current.currentTime = 0;
+            } else {
+                // Si la canción lleva menos de 5 segundos, va a la canción anterior
+                playPreviousTrack();
+            }
+        }
+    };
+    
+
     const playPreviousTrack = () => {
         setTrackIndex((prevIndex) => prevIndex > 0 ? prevIndex - 1 : tracks.length - 1);
     };
@@ -196,7 +210,7 @@ const MusicPlayer: React.FC = () => {
                     <audio src={tracks[trackIndex].url} ref={audioRef} onEnded={playNextTrack} />
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                         <div style={{ display: 'flex', justifyContent: 'center', margin: '10px 0' }}>
-                            <button onClick={playPreviousTrack} style={buttonStyle}>
+                            <button onClick={handleBackward} style={buttonStyle}>
                                 <img src="../../public/imgs/prev_button.png" style={{ width: '20px', height: '20px' }} alt="Previous" />
                             </button>
                             <button onClick={() => setIsPlaying(!isPlaying)} style={buttonStyle}>
