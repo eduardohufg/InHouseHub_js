@@ -34,14 +34,16 @@ export default function Home() {
             setData(messages[0]);   // Establece el primer mensaje en el estado data
             setData2(messages[1]);  // Establece el segundo mensaje en el estado data2
             setData3(messages[2]);  // Establece el tercer mensaje en el estado data3
+            setData4(messages[3]);  // Establece el cuarto mensaje en el estado data4
             
             console.log(response);
             
         } catch (error) {
             console.error("Error fetching data:", error);
-            setData("Error fetching data"); // Ajusta los estados en caso de error
-            setData2("Error fetching data");
-            setData3("Error fetching data");
+            setData("Null"); // Ajusta los estados en caso de error
+            setData2("Null");
+            setData3("Null");
+            setData4("Null");
         }
     }
 
@@ -58,9 +60,9 @@ export default function Home() {
             
         } catch (error) {
             console.error("Error fetching data:", error);
-            setTemInternal("Error fetching data"); // Ajusta los estados en caso de error
-            setHumInternal("Error fetching data");
-            setPresInternal("Error fetching data");
+            setTemInternal("Null"); // Ajusta los estados en caso de error
+            setHumInternal("Null");
+            setPresInternal("Null");
         }
     }
 
@@ -87,6 +89,7 @@ export default function Home() {
             <div className="infodata">Temperature: <span>{data}</span></div>
             <div className="infodata">Pressure: <span>{data2}</span></div>
             <div className="infodata">Humidity: <span>{data3}</span></div>
+            <div className="infodata">Air Quality: <span>{data4}</span></div>
             <PublishButton />
         </section>
 

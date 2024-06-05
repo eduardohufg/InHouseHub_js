@@ -3,6 +3,7 @@ const mqtt = require('mqtt');
 const Temperature = require('../schema/temperature');
 const Pressure = require('../schema/pressure');
 const Humidity = require('../schema/humidity');
+const AirQuality = require('../schema/airQuality');
 
 // Crear una instancia única de cliente MQTT que será utilizada en todo el router
 const client = mqtt.connect('mqtt://localhost:1883');
@@ -10,14 +11,16 @@ const client = mqtt.connect('mqtt://localhost:1883');
 let lastMessage = "No data received";
 let lastMessage2 = "No data received";
 let lastMessage3 = "No data received";
+let lastMessage4 = "No data received";
 let lastTemperature = null;
 let lastPressure = null;
 let lastHumidity = null;
+let lastAirQuality = null;
 
 client.on("connect", () => {
     console.log("Connected to MQTT broker");
     // Suscribirse a todos los temas necesarios aquí si es posible
-    client.subscribe(["temperature", "pressure", "humidity"], (err, granted) => {
+    client.subscribe(["temperature", "pressure", "humidity", "airQuality"], (err, granted) => {
         if (err) {
             console.log("Failed to subscribe:", err.message);
         } else {
@@ -41,6 +44,10 @@ client.on("message", (topic, message) => {
             lastMessage3 = message.toString();
             lastHumidity = parseFloat(message.toString());
             break;
+        case "airQuality":
+            lastMessage4 = message.toString();
+            lastAirQuality = parseFloat(message.toString());
+            break;
     }
 });
 
@@ -49,7 +56,7 @@ client.on("error", (error) => {
 });
 
 router.get('/', (req, res) => {
-    res.send(lastMessage + " " + lastMessage2 + " " + lastMessage3);
+    res.send(lastMessage + " " + lastMessage2 + " " + lastMessage3 + " " + lastMessage4);
 });
 
 router.post('/', (req, res) => {
@@ -106,7 +113,21 @@ function saveHumidity() {
     }
 }
 
+function saveAirQuality() {
+    if (lastAirQuality !== null) {
+        const airQualityData = new AirQuality({
+            value: lastAirQuality
+        });
+        airQualityData.save()
+            .then(() => console.log("AirQuality data saved successfully"))
+            .catch(err => console.error("Error saving AirQuality data:", err));
+    } else {
+        console.log("No AirQuality data to save");
+    }
+}
+
 setInterval(saveTemperature, 300000);
 setInterval(savePressure, 300000);
 setInterval(saveHumidity, 300000);
+setInterval(saveAirQuality, 300000);
 module.exports = router;
