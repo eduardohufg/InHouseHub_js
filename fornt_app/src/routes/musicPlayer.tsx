@@ -234,7 +234,7 @@ const MusicPlayer: React.FC = () => {
                         <div style={{ display: 'flex', justifyContent: 'center', margin: '10px 0' }}>
                             
                             <button onClick={() => setIsShuffle(!isShuffle)} style={buttonStyle}>
-                                <img src={isShuffle ? "../../public/imgs/shuffle_button_true.png" : "../../public/imgs/shuffle_button_false.png"} style={{ width: '20px', height: '20px' }} alt="Shuffle" />
+                                <img src={isShuffle ? "../../public/imgs/shuffle_button_true.png" : "../../public/imgs/shuffle_button_false.png"} style={{ width: '25px', height: '25px' }} alt="Shuffle" />
                             </button>
                             <button onClick={handleBackward} style={buttonStyle}>
                                 <img src="../../public/imgs/prev_button.png" style={{ width: '20px', height: '20px' }} alt="Previous" />
@@ -247,7 +247,7 @@ const MusicPlayer: React.FC = () => {
                             </button>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
-                            <div className='counter'>{formatTime(currentTime)}</div>
+                            <div className='time-container'>{formatTime(currentTime)}</div>
                             <input
                                 type="range"
                                 min="0"
@@ -256,7 +256,7 @@ const MusicPlayer: React.FC = () => {
                                 onChange={(e) => audioRef.current!.currentTime = parseFloat(e.target.value)}
                                 style={{ flexGrow: 1, margin: '0 10px', cursor: 'pointer'}}
                             />
-                            <div className='counter'    >{formatTime(duration)}</div>
+                            <div className='time-container'    >{formatTime(duration)}</div>
                             <label style={{ display: 'flex', alignItems: 'center', marginLeft: '20px' }}>
                                 <img src="../../public/imgs/volume.png" style={{ width: '20px', height: '20px' }} alt="Volume" />
                                 <input
