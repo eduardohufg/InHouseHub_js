@@ -26,6 +26,22 @@ export default function Home() {
     const [presInternal, setPresInternal] = useState("");
 
 
+    const sendMessageToWhatsApp = async () => {
+        try {
+            const message = {
+                to: "525565422917",  // Número de destino
+                message: "Hola, esto es un mensaje enviado desde React!"  // Mensaje a enviar
+            };
+            const response = await Axios.post(`${API_URL}/whatsappSend`, message);
+            console.log('Mensaje enviado:', response.data);
+            alert('Mensaje enviado con éxito!');
+        } catch (error) {
+            console.error('Error al enviar mensaje:', error);
+            alert('Error al enviar mensaje');
+        }
+    };
+
+
     const getMosquitto = async () => {
         try {
             const response = await Axios.get(`${API_URL}/mqtt_manager`);
@@ -102,6 +118,7 @@ export default function Home() {
 
         <div>
             <MusicPlayer />
+            <button onClick={sendMessageToWhatsApp} className="send-btn">Enviar Mensaje WhatsApp</button>
         </div>
     </div>
 </DefaultHome>
