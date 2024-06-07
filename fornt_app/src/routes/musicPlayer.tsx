@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import './MusicPlayer.css';
 
 // Lista de canciones
 const tracks = [
@@ -17,6 +18,62 @@ const tracks = [
         cover: "../../public/cover/more.jpg"
     },
     {
+        title: "Love S.O.S. (WWW)",
+        artist: "Justice",
+        album: "Woman Worldwide",
+        url: "../../public/music/love-sos-www.mp3",
+        cover: "../../public/cover/www.jpg"
+    },
+    {
+        title: "This Love",
+        artist: "Maroon 5",
+        album: "Songs About Jane",
+        url: "../../public/music/this-love.mp3",
+        cover: "../../public/cover/songs-about-jane.jpg"
+    },
+    {
+        title: "Pressure",
+        artist: "Muse",
+        album: "Simulation Theory",
+        url: "../../public/music/pressure.mp3",
+        cover: "../../public/cover/simulation-theory.jpg"
+    },
+    {
+        title: "Sugar",
+        artist: "Maroon 5",
+        album: "V",
+        url: "../../public/music/sugar.mp3",
+        cover: "../../public/cover/v.jpg"
+    },
+    {
+        title: "One More Time",
+        artist: "Daft Punk",
+        album: "Discovery",
+        url: "../../public/music/one-more-time.mp3",
+        cover: "../../public/cover/discovery.jpg"
+    },
+    {
+        title: "Run to the Hills",
+        artist: "Iron Maiden",
+        album: "The Number of the Beast",
+        url: "../../public/music/run-to-the-hills.mp3",
+        cover: "../../public/cover/the-number-of-the-beast.jpg"
+    },
+    {
+        title: "Bellacoso",
+        artist: "Residente, Bad Bunny",
+        album: "Bellacoso",
+        url: "../../public/music/bellacoso.mp3",
+        cover: "../../public/cover/bellacoso.jpg"
+    },
+    {
+        title: "La Dificil",
+        artist: "Bad Bunny",
+        album: "YHLQMDLG",
+        url: "../../public/music/la-dificil.mp3",
+        cover: "../../public/cover/yhlqmdlg.jpg"
+    },
+    {
         title: "KOOL AID KIDS",
         artist: "The Warning",
         album: "Error",
@@ -31,11 +88,18 @@ const tracks = [
         cover: "../../public/cover/worst-nightmare.jpg"
     },
     {
-        title: "Automatic Sun",
-        artist: "The Warning",
-        album: "Keep Me Fed",
-        url: "../../public/music/automatic-sun.mp3",
-        cover: "../../public/cover/keep-me-fed.jpg"
+        title: "Back in Black (Live)",
+        artist: "AC/DC",
+        album: "Live",
+        url: "../../public/music/back-in-black-live.mp3",
+        cover: "../../public/cover/live.jpg"
+    },
+    {
+        title: "You Only Live Once",
+        artist: "The Strokes",
+        album: "First Impressions of Earth",
+        url: "../../public/music/you-only-live-once.mp3",
+        cover: "../../public/cover/first-impressions-of-earth.jpg"
     },
     {
         title: "Aces High",
@@ -215,7 +279,19 @@ const MusicPlayer: React.FC = () => {
         
 
         <div>
+            
         <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+        <div className="track-list">
+                {tracks.map((track, index) => (
+                    <div key={index} className="track-item" onClick={() => setTrackIndex(index)}>
+                        <img src={track.cover} alt={track.title} style={{ width: '100px', height: '100px' }} />
+                        <div className="track-info">
+                            <div className="track-title">{track.title}</div>
+                            <div className="track-artist">{track.artist}</div>
+                        </div>
+                    </div>
+                ))}
+            </div>
             <img 
                 src={tracks[trackIndex].cover} 
                 alt={tracks[trackIndex].title} 

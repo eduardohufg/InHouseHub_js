@@ -1,0 +1,35 @@
+.music-player-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.track-list {
+    flex: 1;
+    height: 350px;
+    width: 250px;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.track-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.track-info {
+    text-align: center;
+    margin-top: 5px; /* Espacio entre la imagen y el texto */
+}
+
+.track-title {
+    font-weight: bold;
+    font-size: 16px; /* Tamaño del título */
+}
+
+.track-artist {
+    font-size: 14px; /* Tamaño para el nombre del artista */
+    color: #666; /* Color más suave para el artista */
+}

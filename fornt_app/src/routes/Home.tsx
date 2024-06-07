@@ -29,7 +29,7 @@ export default function Home() {
 
     const sendMessageToWhatsApp = async () => {
         try {
-            const response = await Axios.post(`${API_URL}/whatsappSend`, message);
+            const response = await Axios.post(`${API_URL}/whatsappSend`);
             console.log('Mensaje enviado:', response.data);
             alert('Mensaje enviado con éxito!');
         } catch (error) {
