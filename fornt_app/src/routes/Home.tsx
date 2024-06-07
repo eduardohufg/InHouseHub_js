@@ -9,6 +9,7 @@ import PublishButton from '../components/handlePublish';
 //import "@madzadev/audio-player/dist/index.css";
 import Player1 from "./player";
 import MusicPlayer from './musicPlayer';
+import TemperatureGauge from './TemperatureGauge';
 import "../home.css";
 
 
@@ -93,6 +94,8 @@ export default function Home() {
         }  // Limpiar el intervalo cuando el componente se desmonte
     }, []);
 
+    const temperature = parseFloat(data) || 0;
+
     if (auth.isAuthenticated) {
         return <Navigate to="/dashboard" />;
     }
@@ -114,6 +117,11 @@ export default function Home() {
             <div>Temperature: <span>{temInternal}</span></div>
             <div>Humidity: <span>{humInternal}</span></div>
             <div>Pressure: <span>{presInternal}</span></div>
+        </section>
+
+        <section className="sensor-section">
+            <header><h2>Temperatura</h2></header>
+            <TemperatureGauge temperature={temperature} />
         </section>
 
         <div>
