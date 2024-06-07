@@ -86,7 +86,34 @@ a {
 .img-cover {
   border-radius: 100px;
 }
+/*juntar los elementos de la fila 1*/
+.data-container {
+  grid-row: 1;
+  max-width: 300px;
+}
 
+.mqtt-container {
+  grid-column: 2;
+  width: 250px;
+}
+
+.internal-container {
+  grid-column: 3;
+  width: 250px;
+}
+
+.music-container {
+  grid-column: 4;
+  padding: 20px;
+}
+
+.temperature-gauge-container {
+  grid-row: 3;
+  width: 250px;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 8px;
+}
 
 .dashboard {
   width: 500px;

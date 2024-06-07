@@ -4,6 +4,12 @@
     align-items: center;
     gap: 150px;
     padding: 20px;
+    display: grid;
+    grid-template-columns:  1fr 1fr 1fr 1fr;
+    
+    grid-template-rows: auto auto 1fr auto; /* Ajusta esto según el número de secciones y su contenido esperado */
+    gap: 20px; /* Espacio entre las filas */
+    
 }
 
 .infodata {

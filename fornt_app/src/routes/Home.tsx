@@ -103,7 +103,7 @@ export default function Home() {
     return (
         <DefaultHome>
     <div className="home-container">
-        <section className="sensor-section">
+        <section className="sensor-section data-container mqtt-container">
             <header><h2>Datos MQTT</h2></header>
             <div className="infodata">Temperature: <span>{data}</span></div>
             <div className="infodata">Pressure: <span>{data2}</span></div>
@@ -112,21 +112,25 @@ export default function Home() {
             <PublishButton />
         </section>
 
-        <section className="sensor-section">
+        <section className="sensor-section data-container internal-container">
             <header><h2>Sensores Internos</h2></header>
             <div>Temperature: <span>{temInternal}</span></div>
             <div>Humidity: <span>{humInternal}</span></div>
             <div>Pressure: <span>{presInternal}</span></div>
         </section>
 
-        <section className="sensor-section">
-            <header><h2>Temperatura</h2></header>
-            <TemperatureGauge temperature={temperature} />
-        </section>
+        <section className="temperature-gauge-container">
+                <header><center><h3>Temperatura Exterior</h3></center></header>
+                <TemperatureGauge temperature={temperature} />
+            </section>
 
         <div>
+            <section className="music-container">
             <MusicPlayer />
             <button onClick={sendMessageToWhatsApp} className="send-btn">Enviar Mensaje WhatsApp</button>
+            </section>
+
+            
         </div>
     </div>
 </DefaultHome>
