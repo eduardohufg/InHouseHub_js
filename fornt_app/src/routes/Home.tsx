@@ -29,10 +29,6 @@ export default function Home() {
 
     const sendMessageToWhatsApp = async () => {
         try {
-            const message = {
-                to: "525565422917",  // Número de destino
-                message: "Hola, esto es un mensaje enviado desde React!"  // Mensaje a enviar
-            };
             const response = await Axios.post(`${API_URL}/whatsappSend`, message);
             console.log('Mensaje enviado:', response.data);
             alert('Mensaje enviado con éxito!');
