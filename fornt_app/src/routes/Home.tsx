@@ -8,10 +8,7 @@ import Axios from 'axios';
 import MusicPlayer from './musicPlayer';
 import "../home.css";
 
-
-
 export default function Home() {
-
 
     function time () {
         const date = new Date();
@@ -26,9 +23,8 @@ export default function Home() {
             
     <div className="home-container">
         <div>
-            <h1 className="time">{time()}</h1>
-            
             <section className="music-container">
+            <h1 className="time">{time()}</h1>
             <MusicPlayer />
             </section>
         </div>

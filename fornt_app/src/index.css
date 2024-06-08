@@ -136,13 +136,13 @@ a {
 }
 
 .time {
-    font-size: 3rem;  /* Tamaño grande para fácil lectura */
+    font-size: 4rem;  /* Tamaño grande para fácil lectura */
     display: block;
     margin-left: 400px;
     color: #171717;  /* Un color verde claro */
     font-family: 'Arial', sans-serif;  /* Fuente moderna y legible */
     text-shadow: 1px 1px 2px rgb(112, 112, 112);  /* Sombra para dar profundidad */
-    border-radius: 10px;  /* Bordes redondeados */
+    border-radius: 5px;  /* Bordes redondeados */
 }
 
 .dashboard {
