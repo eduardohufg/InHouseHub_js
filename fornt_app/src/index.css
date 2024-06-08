@@ -93,12 +93,10 @@ a {
 }
 
 .mqtt-container {
-  grid-column: 2;
   width: 250px;
 }
 
 .internal-container {
-  grid-column: 3;
   width: 250px;
 }
 
@@ -107,12 +105,44 @@ a {
   padding: 20px;
 }
 
+.gauge-container {
+  display: flex;
+  justify-content: left;  /* Distribuye espacio uniformemente alrededor de los elementos */
+  align-items: center;
+}
+
 .temperature-gauge-container {
-  grid-row: 3;
-  width: 250px;
+  width: 330px;
+  height: 140px;
   border: 1px solid #ddd;
-  padding: 20px;
+  padding: 10px;
   border-radius: 8px;
+}
+
+.humidity-gauge-container {
+  width: 330px;
+  height: 140px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.airquality-gauge-container {
+  width: 330px;
+  height: 140px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.time {
+    font-size: 3rem;  /* Tamaño grande para fácil lectura */
+    display: block;
+    margin-left: 400px;
+    color: #171717;  /* Un color verde claro */
+    font-family: 'Arial', sans-serif;  /* Fuente moderna y legible */
+    text-shadow: 1px 1px 2px rgb(112, 112, 112);  /* Sombra para dar profundidad */
+    border-radius: 10px;  /* Bordes redondeados */
 }
 
 .dashboard {

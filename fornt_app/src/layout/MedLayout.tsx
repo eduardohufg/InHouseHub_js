@@ -8,7 +8,7 @@ interface DefaultLayoutProps {
 
 
 
-export default function DefaultHome({ children}: DefaultLayoutProps ) { 
+export default function MedLayout({ children}: DefaultLayoutProps ) { 
     return (
         <>
         <header>
@@ -21,7 +21,7 @@ export default function DefaultHome({ children}: DefaultLayoutProps ) {
                         <Link to="/signup">Signup</Link>
                     </li>
                     <li>
-                        <Link to="/mediciones">Mediciones</Link>
+                        <Link to="/">Home</Link>
                     </li>
                 </ul>
             </nav>

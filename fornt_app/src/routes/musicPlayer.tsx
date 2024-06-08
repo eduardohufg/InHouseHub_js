@@ -281,6 +281,7 @@ const MusicPlayer: React.FC = () => {
         <div>
             
         <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+            <div>
         <div className="track-list">
                 {tracks.map((track, index) => (
                     <div key={index} className="track-item" onClick={() => setTrackIndex(index)}>
@@ -291,6 +292,8 @@ const MusicPlayer: React.FC = () => {
                         </div>
                     </div>
                 ))}
+                </div>
+
             </div>
             <img 
                 src={tracks[trackIndex].cover} 
