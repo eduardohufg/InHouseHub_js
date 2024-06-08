@@ -26,6 +26,7 @@ export default function Mediciones() {
     const [temInternal, setTemInternal] = useState("");
     const [humInternal, setHumInternal] = useState("");
     const [presInternal, setPresInternal] = useState("");
+    const [airQ, setAirQ] = useState("");
 
     const getMosquitto = async () => {
         try {
@@ -56,6 +57,7 @@ export default function Mediciones() {
             setTemInternal(messages[0]);   // Establece el primer mensaje en el estado data
             setHumInternal(messages[1]);  // Establece el segundo mensaje en el estado data2
             setPresInternal(messages[2]);  // Establece el tercer mensaje en el estado data3
+            setAirQ(messages[3]);  // Establece el cuarto mensaje en el estado data4
             
             console.log(response);
             
@@ -64,6 +66,7 @@ export default function Mediciones() {
             setTemInternal("Null"); // Ajusta los estados en caso de error
             setHumInternal("Null");
             setPresInternal("Null");
+            setAirQ("Null");
         }
     }
 
@@ -138,6 +141,7 @@ export default function Mediciones() {
             <div>Temperature: <span>{temInternal}</span></div>
             <div>Humidity: <span>{humInternal}</span></div>
             <div>Pressure: <span>{presInternal}</span></div>
+            <div>Air Quality: <span>{airQ}</span></div>
         </section>
 
        
