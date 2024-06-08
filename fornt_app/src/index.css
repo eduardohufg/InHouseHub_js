@@ -136,7 +136,7 @@ a {
 }
 
 .time {
-    font-size: 4rem;  /* Tamaño grande para fácil lectura */
+    font-size: 5rem;  /* Tamaño grande para fácil lectura */
     display: block;
     margin-left: 400px;
     color: #171717;  /* Un color verde claro */

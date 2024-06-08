@@ -81,6 +81,12 @@ export default function Mediciones() {
         }
     };
 
+   /*Comprobar el aire */
+   const air = parseFloat(airQ) || 0;
+
+    if (air > 2.5){
+         sendMessageToWhatsApp();
+    }
 
     useEffect(() => {
         getMosquitto();
@@ -93,9 +99,7 @@ export default function Mediciones() {
     }, []);
 
     const temperature = parseFloat(data) || 0;
-    const humidity = parseFloat(data2) || 0;
-    const pressure = parseFloat(data3) || 0;
-    const airQuality = parseFloat(data4) || 0;
+    const humidity = parseFloat(data3) || 0;
 
 
     if (auth.isAuthenticated) {
@@ -104,7 +108,7 @@ export default function Mediciones() {
 
     return (
         <MedLayout>
-            <PublishButton />
+            
         <div className='gauge-container'>    
             <section className="gauge-container temperature-gauge-container">
                     <header><center><h3>Temperatura Exterior</h3></center></header>
@@ -114,35 +118,27 @@ export default function Mediciones() {
                     <header><center><h3>Humedad Exterior</h3></center></header>
                     <center><HumidityGauge humidity={humidity} /></center>
             </section>
-            <section className="gauge-container airquality-gauge-container">
-                    <header><center><h3>Calidad del Aire Exterior</h3></center></header>
-                    <center><AirQualityGauge airQuality={airQuality} /></center>
-            </section>
         </div>
+        
         <div className='gauge-container'>
-            <section className='gauge-container'>
-                <header><center><h3>Presión Exterior</h3></center></header>
-                <center>pressure={pressure}</center>
-
-
-            </section>
-        </div>
         <section className="sensor-section data-container mqtt-container">
             <header><h2>Datos MQTT</h2></header>
-            <div className="infodata">Temperature: <span>{data}</span></div>
-            <div className="infodata">Pressure: <span>{data2}</span></div>
-            <div className="infodata">Humidity: <span>{data3}</span></div>
-            <div className="infodata">Air Quality: <span>{data4}</span></div>
+            <div className="infodata">Temperatura: <span>{data}</span></div>
+            <div className="infodata">Presión: <span>{data2}</span></div>
+            <div className="infodata">Humedad: <span>{data3}</span></div>
+            <div className="infodata">Calidad del aire: <span>{data4}</span></div>
             
         </section>
-
+        <PublishButton />
         <section className="sensor-section data-container internal-container">
             <header><h2>Sensores Internos</h2></header>
-            <div>Temperature: <span>{temInternal}</span></div>
-            <div>Humidity: <span>{humInternal}</span></div>
-            <div>Pressure: <span>{presInternal}</span></div>
-            <div>Air Quality: <span>{airQ}</span></div>
+            <div>Temperatura: <span>{temInternal}</span></div>
+            <div>Humedad: <span>{humInternal}</span></div>
+            <div>Presión: <span>{presInternal}</span></div>
+            <div>Calidad del aire: <span>{airQ}</span></div>
         </section>
+        
+        </div>
 
        
 </MedLayout>     
