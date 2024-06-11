@@ -218,6 +218,7 @@ const MusicPlayer: React.FC = () => {
             audioRef.current.volume = volume;
         }
     }, [volume]);
+    
 
     const handleBackward = () => {
         if (audioRef.current) {
@@ -301,7 +302,6 @@ const MusicPlayer: React.FC = () => {
                 style={{ width: '200px', height: '200px', borderRadius: 15 }} 
             />
             <div>
-                <audio src={tracks[trackIndex].url} ref={audioRef} onEnded={playNextTrack} />
                 <div>
                     <div className="centered-text" style={{fontSize: 25, fontWeight: 'bold'}}>{tracks[trackIndex].title}</div>
                     <div className="centered-text" style={{fontSize: 17, fontWeight: 'bold'}}>{tracks[trackIndex].artist}</div>

@@ -10,8 +10,8 @@ import PublishButton from '../components/handlePublish';
 //import Player1 from "./player";
 import TemperatureGauge from './TemperatureGauge';
 import HumidityGauge from './HumidityGauge';
-import AirQualityGauge from './AirQualityGauge';
 import "../home.css";
+import VideoComponent from './VideoComponent';
 
 
 
@@ -138,6 +138,11 @@ export default function Mediciones() {
             <div>Calidad del aire: <span>{airQ}</span></div>
         </section>
         
+        </div>
+
+        <div>
+            <h1>Peer-to-Peer Communication</h1>
+            <VideoComponent />
         </div>
 
        
